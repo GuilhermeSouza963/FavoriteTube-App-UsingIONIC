@@ -1,14 +1,40 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="danger">
     <ion-title>
-      Ionic Blank
+      Videos
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+    <ion-searchbar placeholder="Digite o video desejado" [showCancelButton]="true" #tag (keyup.enter)="buscarVideo(tag.value)"></ion-searchbar>
+    <ion-card>
+      <ion-card-header>
+        Titulo
+      </ion-card-header>
+      <ion-card-content>
+        <img src="https://i.ytimg.com/vi_webp/zNAxguSETg4/movieposter.webp">
+        Video do Youtube
+      </ion-card-content>
+      <ion-row>
+          <!-- <ion-col *ngIf="video.idPlayList"> -->
+            <ion-col>
+              <button ion-button icon-left clear small (click)="showPlayList(video)">
+                <ion-icon name="md-albums"></ion-icon>
+                <div>Ver playlist</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left clear small (click)="compartilharFacebook(video)">
+                <ion-icon name="text"></ion-icon>
+                <div>Compartilhar</div>
+              </button>
+            </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-fab right bottom>
+      <button ion-fab color="danger" (click)="AddVideo()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
 </ion-content>

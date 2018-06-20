@@ -1,5 +1,4 @@
 import { LoadingController, ToastController, AlertController } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
@@ -19,7 +18,7 @@ export class UtilServiceProvider {
   }
 
   public obterHostDaApi(): string {
-    return "http://localhost:49325/";
+    return "http://18.231.180.155/YouLearn/";
   }
 
   public showLoading(message: string = "Processando..."): any {

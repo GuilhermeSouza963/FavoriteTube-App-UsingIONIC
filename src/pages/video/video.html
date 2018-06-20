@@ -1,12 +1,78 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Video</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>Novo Vídeo</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <form [formGroup]="form">
+    <ion-list >
+        <ion-item>
+            <ion-label floating>Titulo</ion-label>
+            <ion-input type="text" formControlName="titulo"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label floating>Descricao</ion-label>
+            <ion-input type="text" formControlName="descricao"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label floating>Url do vídeo no Youtube</ion-label>
+            <ion-input type="text" formControlName="idVideoYoutube"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label floating>Tags</ion-label>
+            <ion-input type="text" formControlName="tags"></ion-input>
+          </ion-item>
+    
+         
+    
+          <ion-item-sliding>
+            <ion-item>
+              <ion-label floating>Canal</ion-label>
+    
+              <ion-select formControlName="idCanal" [(ngModel)]="canalSelecionado" interface="action-sheet">
+                <ion-option *ngFor="let canal of canais" value="{{canal.idCanal}}">{{canal.nome}}</ion-option>
+              </ion-select>
+            </ion-item>
+    
+            <ion-item-options side="right">
+              <button ion-button color="primary" (click)="showAddCanal()">
+                <ion-icon name="add"></ion-icon>
+                Novo
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+    
+    
+          <ion-item-sliding>
+            <ion-item>
+              <ion-label floating>PlayList</ion-label>
+              <ion-select formControlName="idPlaylist" [(ngModel)]="playlistSelecionada" interface="action-sheet">
+                <ion-option *ngFor="let playlist of playlists" value="{{playlist.idPlayList}}">{{playlist.nome}}</ion-option>
+              </ion-select>
+            </ion-item>
+    
+            <ion-item-options side="right">
+              <button ion-button color="primary" (click)="showAddPlayList()">
+                <ion-icon name="add"></ion-icon>
+                Novo
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+          
+          <ion-item>
+            <ion-label floating>Ordem na Playlist</ion-label>
+            <ion-input type="number" formControlName="OrdemPlayList"></ion-input>
+          </ion-item>
+    </ion-list>
+  </form>
+
+  <button ion-button color="danger" outline block round [disabled]="!form.valid" (click)="salvar()">SALVAR</button>
+  <button ion-button color="dark" outline block round (click)="cancelar()">CANCELAR</button>
 
 </ion-content>

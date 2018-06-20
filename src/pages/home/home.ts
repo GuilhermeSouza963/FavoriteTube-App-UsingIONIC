@@ -3,7 +3,6 @@ import { VideoServiceProvider } from './../../providers/video-service/video-serv
 import { UtilServiceProvider } from './../../providers/util-service/util-service';
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
-import { style } from '@angular/core/src/animation/dsl';
 
 @Component({
   selector: 'page-home',
@@ -11,16 +10,27 @@ import { style } from '@angular/core/src/animation/dsl';
 })
 export class HomePage {
   videos: any[] = [];
-  constructor(public navCtrl: NavController, private utilService: UtilServiceProvider, private videoService: VideoServiceProvider, private alertCtrl: AlertController, private usuarioService : UsuarioServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    private utilService: UtilServiceProvider, 
+    private videoService: VideoServiceProvider, 
+    private alertCtrl: AlertController, 
+    private usuarioService : UsuarioServiceProvider) {
+  }
+
+  ionViewDidLoad() {
+    this.buscarVideo('');
   }
 
   buscarVideo(tag: string) {
+    //busca todos os videos
     if (tag == null || tag.trim() == '') {
-      return;
+      this.loadVideosInicial();
     }
-
+    else{
     //chama a api e busca os videos
     this.loadVideos(tag);
+    }
+
   }
 
   loadVideos(tag: string) {
@@ -29,6 +39,21 @@ export class HomePage {
     loading.present();
 
     this.videoService.listarPorTags(tag).then((response) => {
+      this.videos = response.json();
+      loading.dismiss();
+    }).catch((response) => {
+      this.utilService.showMessageError(response);
+      loading.dismiss();
+    });
+
+  }
+
+  loadVideosInicial() {
+    // chamada da api
+    let loading = this.utilService.showLoading();
+    loading.present();
+
+    this.videoService.listar().then((response) => {
       this.videos = response.json();
       loading.dismiss();
     }).catch((response) => {
@@ -131,6 +156,18 @@ export class HomePage {
         loading.dismiss();
         this.utilService.showMessageError(response);
       });
+  }
+
+  compartilharFacebook(video){
+    window.open('https://www.facebook.com/sharer.php?u=' + video.url);
+  }
+
+  showPlayList(video : any){
+    this.navCtrl.push('PlayListPage', {idPlayList: video.idPlayList, nomePlayList: video.nomePlayList});
+  }
+
+  playVideo(video : any){
+    this.navCtrl.push('PlayVideoPage', {url: video.url, nomeVideo: video.titulo});
   }
 
 }

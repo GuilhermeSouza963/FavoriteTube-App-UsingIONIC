@@ -8,28 +8,27 @@
 
 <ion-content padding>
     <ion-searchbar placeholder="Digite o video desejado" [showCancelButton]="true" #tag (keyup.enter)="buscarVideo(tag.value)"></ion-searchbar>
-    <ion-card>
-      <ion-card-header>
-        Titulo
+    <ion-card *ngFor="let video of videos">
+      <ion-card-header (click)="playVideo(video)">
+        <b>{{video.titulo}}</b>
       </ion-card-header>
-      <ion-card-content>
-        <img src="https://i.ytimg.com/vi_webp/zNAxguSETg4/movieposter.webp">
-        Video do Youtube
+      <ion-card-content (click)="playVideo(video)">
+        <img [src]="video.thumbnail">
+        {{video.descricao}}
       </ion-card-content>
       <ion-row>
-          <!-- <ion-col *ngIf="video.idPlayList"> -->
-            <ion-col>
+          <ion-col *ngIf="video.idPlayList">
               <button ion-button icon-left clear small (click)="showPlayList(video)">
                 <ion-icon name="md-albums"></ion-icon>
                 <div>Ver playlist</div>
               </button>
             </ion-col>
-            <ion-col>
+            <!-- <ion-col>
               <button ion-button icon-left clear small (click)="compartilharFacebook(video)">
                 <ion-icon name="text"></ion-icon>
                 <div>Compartilhar</div>
               </button>
-            </ion-col>
+            </ion-col> -->
       </ion-row>
     </ion-card>
     <ion-fab right bottom>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UtilServiceProvider } from '../../providers/util-service/util-service';
 import { UsuarioServiceProvider } from '../../providers/usuario-service/usuario-service';

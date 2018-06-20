@@ -1,6 +1,6 @@
-import { UtilServiceProvider } from './../util-service/util-service';
 import { Headers, Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { UtilServiceProvider } from '../util-service/util-service';
 
 /*
   Generated class for the VideoServiceProvider provider.
@@ -11,11 +11,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class VideoServiceProvider {
 
-  constructor(public http: Http, public utilService: UtilServiceProvider,
-  ) { }
-  
+  constructor(public http: Http, public utilService: UtilServiceProvider, ) {
+  }
+
+  listar(): Promise<Response> {
+
+    let host = this.utilService.obterHostDaApi();
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.get(host + 'api/v1/Video/Listar' , { headers: headers }).toPromise();
+  }
+
   listarPorTags(tags: string): Promise<Response> {
-    
+
     let host = this.utilService.obterHostDaApi();
 
     let headers = new Headers();
@@ -37,11 +47,11 @@ export class VideoServiceProvider {
 
     let host = this.utilService.obterHostDaApi();
 
-    let headers : any = new Headers();
+    let headers: any = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('YouLearnToken'));
 
-    return this.http.post(host + 'api/v1/Video/Adicionar/',  request, { headers: headers }).toPromise();
+    return this.http.post(host + 'api/v1/Video/Adicionar/', request, { headers: headers }).toPromise();
   }
 
 }

@@ -10,6 +10,8 @@ import { UtilServiceProvider } from '../providers/util-service/util-service';
 import { VideoServiceProvider } from '../providers/video-service/video-service';
 import { HttpModule } from '@angular/http';
 import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-service';
+import { CanalServiceProvider } from '../providers/canal-service/canal-service';
+import { PlayListServiceProvider } from '../providers/play-list-service/play-list-service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,10 @@ import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-ser
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UtilServiceProvider,
     VideoServiceProvider,
-    UsuarioServiceProvider
+    UsuarioServiceProvider,
+    CanalServiceProvider,
+    PlayListServiceProvider,
+    VideoServiceProvider
   ]
 })
 export class AppModule {}
